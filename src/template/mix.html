@@ -1,0 +1,29 @@
+<div class="mix-container" v-bind:style="{overflow:loading?'hidden':'auto'}">
+    <div class="loading" v-if='loading'>
+        <div class="loading_icon">
+            <mt-spinner :type='1' color='#26a2ff' :size='100' ></mt-spinner>
+            <!--<p>数据加载中......</p>-->
+        </div>
+    </div>
+    <div class="mix">
+        <div class="mix-items">
+            <i class="iconfont icon-arrow-l l" v-on:click="prevOutfit()"></i>
+            <i class="iconfont icon-arrow-r r" v-on:click="nextOutfit()"></i>
+            <div class="mix-item-slider" v-bind:style="{width:getSliderWidth,transform:'translateX('+ container.sliderOffset +'px)'}">
+                <div class="mix-item" v-bind:style="{width:container.width+'px'}" v-for="(item, i) in renderData.mixedItems" v-on:click="goProductInfo(item)">
+                    <img :src="item.look_image_url">
+                    <div class="hot-zone" v-on:click="getSimilarProducts(product.productId, i, j, item.look_id)" v-for="(product, j) in item.products" v-bind:style="{left:product.x,top:product.y,width:product.width,height:product.height}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="similar">
+            <div class="similar-slider">
+                <ul>
+                    <li v-for="product in renderData.renderReplace.activeSimilarList" v-on:click="replaceProduct(product.id)">
+                        <img v-bind:src="product.image_url">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
